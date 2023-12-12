@@ -11,6 +11,12 @@ Tumour_detect = load_model(r'C:\Users\rayen\OneDrive\Desktop\LCS3\Machine learni
 
 class_labels={0: 'adenocarcinoma', 1: 'large.cell.carcinoma', 2: 'normal', 3: 'squamous.cell.carcinoma'}
 
+treatments_dict = {
+    0: "Adenocarcinoma is often treated with a combination of surgery, chemotherapy, and targeted therapy.",
+    1: "Large cell carcinoma treatment may involve surgery, chemotherapy, and radiation therapy.",
+    3: "Squamous cell carcinoma treatment may include surgery, radiation therapy, and immunotherapy.",
+    
+}
 def preprocess_image(img_path):
 
     img = image.load_img(img_path, target_size=(224, 224))
@@ -40,3 +46,9 @@ if uploaded_file is not None:
     img = Image.open(uploaded_file).convert("RGB")
     img = img.resize((224, 224))
     st.image(img, caption=f"Predicted: {class_labels[predicted_class]}", use_column_width=True)
+    if predicted_class != 2:  # normal class doesn't need treatement
+        recommended_treatments = treatments_dict.get(predicted_class, "No specific treatments available.")
+        st.text("Recommended Treatments:")
+        st.text(recommended_treatments)
+    else:
+        st.text("No specific treatments are recommended for you. Regular health check-ups are advised.")

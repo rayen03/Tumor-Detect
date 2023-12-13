@@ -37,7 +37,7 @@ def predict(image_path, model):
     return predicted_class
 
 # Streamlit app
-st.title("Tumour Detect")
+st.title("Tumor Detect")
 uploaded_file = st.file_uploader("Choose an image...", type=("png", "jpg", "jpeg", "gif", "bmp"))
 
 if uploaded_file is not None:
